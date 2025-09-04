@@ -1,0 +1,190 @@
+:root {
+  --bg-gradient: linear-gradient(120deg, #6a11cb, #2575fc, #ff6a00);
+  --stopwatch-bg: rgba(255, 255, 255, 0.15);
+  --stopwatch-border: rgba(255, 255, 255, 0.4);
+  --display-color: #fff;
+  --button-text: #fff;
+  --shadow-color: rgba(0, 0, 0, 0.35);
+}
+
+body.dark {
+  --bg-gradient: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+  --stopwatch-bg: rgba(0, 0, 0, 0.4);
+  --stopwatch-border: rgba(255, 255, 255, 0.1);
+  --display-color: #f5f5f5;
+  --button-text: #f5f5f5;
+  --shadow-color: rgba(0, 0, 0, 0.7);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  transition: all 0.4s ease-in-out;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg-gradient);
+  background-size: 300% 300%;
+  animation: bgShift 12s ease infinite;
+}
+
+@keyframes bgShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.theme-toggle {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  color: var(--button-text);
+  background: linear-gradient(135deg, #ff9800, #ff5722);
+  box-shadow: 0 4px 10px var(--shadow-color);
+  transition: all 0.3s ease;
+}
+.theme-toggle:hover {
+  transform: translateY(-2px);
+}
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.stopWatch {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 3px solid var(--stopwatch-border);
+  border-radius: 30px;
+  background: var(--stopwatch-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 40px;
+  box-shadow: 0 8px 32px var(--shadow-color);
+  transition: transform 0.3s ease;
+}
+
+.stopWatch:hover {
+  transform: scale(1.05);
+}
+
+.display {
+  font-size: 5rem;
+  font-weight: bold;
+  color: var(--display-color);
+  text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.8),
+    2px 2px 10px rgba(0, 0, 0, 0.6);
+  margin-bottom: 25px;
+  animation: pulse 2s infinite alternate;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@keyframes pulse {
+  from {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  }
+  to {
+    text-shadow: 0 0 30px rgba(255, 255, 255, 1);
+  }
+}
+
+.controls button {
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 12px 25px;
+  margin: 8px;
+  min-width: 140px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  color: var(--button-text);
+  letter-spacing: 1px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.controls button::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.4) 20%,
+    transparent 60%
+  );
+  transform: scale(0);
+  transition: transform 0.4s ease;
+  border-radius: 50%;
+}
+
+.controls button:hover::before {
+  transform: scale(1);
+}
+
+.controls button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.controls button:active {
+  transform: scale(0.95);
+}
+
+.start-button {
+  background: linear-gradient(135deg, #28a745, #00ff88);
+}
+.stop-button {
+  background: linear-gradient(135deg, #dc3545, #ff4e50);
+}
+.reset-button {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+}
+
+@media (max-width: 768px) {
+  .display {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .display {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 500px) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls button {
+    width: 100%;
+    min-width: unset;
+  }
+}
